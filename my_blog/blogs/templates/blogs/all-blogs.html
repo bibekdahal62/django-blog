@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+All Posts
+{% endblock %}
+
+<!-- {% block extra_css %}
+
+{% endblock %} -->
+
+
+{% block content %}
+
+{% if is_by_date %}
+<h1 class="heading-one">Latest 10 Posts By Date</h1>
+{% else %}
+<h1 class="heading-one">All Posts</h1>
+{% endif %}
+
+<div class="latest-posts posts-page">
+    {% for post in posts %}
+    <a href="{% url 'blog_detail' post.slug %}">
+        <div class="post-by-post">
+            <div class="latest-post-image">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% else %}
+                <img src="{% static 'images/default-post-image.png' %}" alt="Default image">
+            {% endif %}
+            </div>
+            <div class="latest-post-description">
+                <h2 class="heading-two">{{ post.title }}</h2>
+                <p>{{ post.content|truncatechars:50 }}</p>
+                <p class="author-name">By {{ post.author }}</p>
+                <p class="created-date">{{ post.created_at|date:"F j, Y, g:i a" }}</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
