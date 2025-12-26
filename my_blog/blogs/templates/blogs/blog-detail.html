@@ -19,18 +19,41 @@
     </div>
     <div class="post-description">
         <p class="content">{{ post.content }}</p>
-        <p class="author">{{ post.author }}</p>
-        <p class="date">{{ post.created_at|date:"F j, Y, g:i a" }}</p>
+        <p class="author">Author: {{ post.author }}</p>
+        <p class="date">Date: {{ post.created_at|date:"F j, Y, g:i a" }}</p>
+        <p class="post-catagory">Catagory: {{ post.catagory }}</p>
+        <div class="action-buttons">
+        {% if post.author == user %}
+            <ul class="buttons">
+                <li class="danger-button"><a href="">Delete</a></li>
+                <li class="edit-button"><a href="">Update</a></li>
+            </ul>
+        {% endif %}
     </div>
-    <div class="action-buttons">
-        <ul class="buttons">
-            <li class="danger-button"><a href="">Delete</a></li>
-            <li class="edit-button"><a href="">Update</a></li>
-            <li class="comment-button"><a href="">Leave a comment</a></li>
-        </ul>
+    </div>
+    <div class="comments-container">
+        <h3 class="heading-three">Comments</h3>
+        <div class="make-comment">
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.text }}
+                <button type="submit" class="comment-button">Leave a comment</button>
+            </form>
+        </div>
+        {% for comment in comments %}
+        <div class="single-comment">
+            <p>{{ comment.text }}</p>
+            <p class="user-name">By: {{ comment.user.username }}</p>
+            <p class="date">Date: {{ comment.created_at|date:"F j, Y, g:i a" }}</p>
+            {% if comment.user == user %}
+                <ul class="buttons">
+                    <li class="danger-button"><a href="">Delete</a></li>
+                    <li class="edit-button"><a href="{% url 'update_comment' post.slug comment.id %}">Update</a></li>
+                </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
     </div>
 </div>
-
-
 
 {% endblock %}

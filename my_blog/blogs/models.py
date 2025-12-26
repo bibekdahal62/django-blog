@@ -17,10 +17,10 @@ class Catagory(models.Model):
             base_slug = slugify(self.name)
             slug = base_slug
             counter = 1
-            while Post.objects.filter(slug = slug).exists():
+            while Catagory.objects.filter(slug = slug).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1
-                self.slug = slug
+            self.slug = slug
         super().save(*args, **kwargs)
 
 
@@ -31,7 +31,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    catagory = models.OneToOneField(Catagory, on_delete=models.CASCADE, related_name="catagory")
+    catagory = models.ForeignKey(Catagory, on_delete=models.CASCADE, related_name="catagory")
     
     def __str__(self):
         return f"{self.title}"
@@ -45,7 +45,7 @@ class Post(models.Model):
             while Post.objects.filter(slug = slug).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1
-                self.slug = slug
+            self.slug = slug
         super().save(*args, **kwargs)
 
 
