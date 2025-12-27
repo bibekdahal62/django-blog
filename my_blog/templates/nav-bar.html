@@ -4,7 +4,7 @@
 <nav class="navigation-bar-container">
     <div class="profile-image">
         <img src="{% static 'images/default-post-image.png' %}" alt="profile image">
-        <p>USER <br> king</p>
+        <p>{{ user.first_name }} <br> {{ user.last_name }}</p>
     </div>
     <ul class="nav-bar">
         <li><a href="{% url 'home' %}">Home</a></li>

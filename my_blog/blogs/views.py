@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Comment, Catagory
-from .forms import CommentForm, PostForm
+from .models import Post
+from .forms import PostForm
+from comments.forms import CommentForm
+from catagories.models import Catagory
 
 # Create your views here.
 
@@ -47,16 +49,9 @@ def blog_detail(request, post_slug):
     })
 
 
-def catagories_list(request):
-    catagories = Catagory.objects.order_by('name')
-    return render(request, 'blogs/catagories.html', {
-        'catagories' : catagories
-    })
-
-
 def post_by_catagory(request, slug):
     catagory = get_object_or_404(Catagory, slug = slug)
-    posts = Post.objects.filter(catagory = catagory)
+    posts = catagory.posts.all().order_by('-created_at')
     return render(request, 'blogs/all-blogs.html', {
         'posts': posts,
         'by_catagory': True,
@@ -118,38 +113,3 @@ def delete_blog(request, post_slug):
         })
 
 
-def update_comment(request, post_slug, comment_id):
-    comment = get_object_or_404(Comment, pk = comment_id)
-    if comment.user != request.user:
-        return redirect('blog_detail', post_slug = post_slug)
-    if request.method == 'POST':
-        form = CommentForm(request.POST, instance=comment)
-        if form.is_valid():
-            form.save()
-            return redirect('blog_detail', post_slug = post_slug)
-    else:
-        form = CommentForm(instance=comment)
-    return render(request, 'blogs/add-edit-content.html', {
-        'form': form,
-        'comment': comment,
-        'post_slug': post_slug,
-        'edit_comment': True,
-        'heading': "Update Comment"
-    })
-
-
-def delete_comment(request, post_slug, id):
-    comment = get_object_or_404(Comment, pk = id)
-
-    if comment.user != request.user:
-       return redirect('blog_detail', post_slug = post_slug)
-    
-    if request.method == 'POST':
-        comment.delete()
-        return redirect('all_posts')
-    
-    return render(request, 'blogs/confirm-delete.html', {
-        'delete_comment': True,
-        'post_slug': post_slug,
-        'comment': comment
-        })
