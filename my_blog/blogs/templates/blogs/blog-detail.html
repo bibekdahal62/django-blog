@@ -25,8 +25,8 @@
         <div class="action-buttons">
         {% if post.author == user %}
             <ul class="buttons">
-                <li class="danger-button"><a href="">Delete</a></li>
-                <li class="edit-button"><a href="">Update</a></li>
+                <li class="danger-button"><a href="{% url 'delete_blog' post.slug %}">Delete</a></li>
+                <li class="edit-button"><a href="{% url 'update_blog' post.slug %}">Update</a></li>
             </ul>
         {% endif %}
     </div>
@@ -47,7 +47,7 @@
             <p class="date">Date: {{ comment.created_at|date:"F j, Y, g:i a" }}</p>
             {% if comment.user == user %}
                 <ul class="buttons">
-                    <li class="danger-button"><a href="">Delete</a></li>
+                    <li class="danger-button"><a href="{% url 'delete_comment' post.slug comment.id %}">Delete</a></li>
                     <li class="edit-button"><a href="{% url 'update_comment' post.slug comment.id %}">Update</a></li>
                 </ul>
             {% endif %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="comments-container">
+        <h1 class="heading-one">{{ heading }}</h1>
+        {% if edit_comment %}
+        <div class="make-comment">
+                <p>Original Coment: {{ comment.text }}</p>
+            <p class="user-name">By: {{ comment.user.username }}</p>
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.text }}
+                <button type="submit" class="comment-button">Update Comment</button>
+                <a href="{% url 'blog_detail' post_slug %}" class="cancel-button">Cancel</a>
+            </form>
+        </div>
+        {% elif add_edit_post %}
+        <div class="add-post">
+            <form method="post" enctype="multipart/form-data" class="post-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add Post</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

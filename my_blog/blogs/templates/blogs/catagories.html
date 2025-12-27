@@ -9,7 +9,7 @@
 
 <div class="all-catagories">
     {% for catagory in catagories %}
-    <a href="{% url 'post_by_catagory' catagory.slug %}">
+    <a href="{% url 'blog_by_catagory' catagory.slug %}">
         <div class="catagory">
             <h2 class="heading-two">{{catagory.name}}</h2>
             <div class="description">

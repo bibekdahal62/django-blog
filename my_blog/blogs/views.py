@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment, Catagory
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 
 # Create your views here.
 
@@ -64,6 +64,60 @@ def post_by_catagory(request, slug):
     })
 
 
+def add_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('home')
+    else:
+        form = PostForm()
+    return render(request, 'blogs/add-edit-content.html', {
+        'form': form,
+        'add_edit_post': True,
+        'heading': 'Add New Post'
+    })
+
+
+def update_post(request, post_slug):
+    post = get_object_or_404(Post, slug = post_slug)
+    if post.author != request.user:
+        return redirect('blog_detail', post_slug = post_slug)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('home')
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'blogs/add-edit-content.html', {
+        'form': form,
+        'add_edit_post': True,
+        'heading': 'Add New Post',
+    })
+
+
+def delete_blog(request, post_slug):
+    post = get_object_or_404(Post, slug = post_slug)
+
+    if post.author != request.user:
+       return redirect('blog_detail', post_slug = post_slug)
+    
+    if request.method == 'POST':
+        post.delete()
+        return redirect('all_posts')
+    
+    return render(request, 'blogs/confirm-delete.html', {
+        'post': post,
+        'delete_post': True
+        })
+
+
 def update_comment(request, post_slug, comment_id):
     comment = get_object_or_404(Comment, pk = comment_id)
     if comment.user != request.user:
@@ -75,9 +129,27 @@ def update_comment(request, post_slug, comment_id):
             return redirect('blog_detail', post_slug = post_slug)
     else:
         form = CommentForm(instance=comment)
-    return render(request, 'blogs/edit-content.html', {
+    return render(request, 'blogs/add-edit-content.html', {
         'form': form,
         'comment': comment,
         'post_slug': post_slug,
-        'edit_action_for_comment': True
+        'edit_comment': True,
+        'heading': "Update Comment"
     })
+
+
+def delete_comment(request, post_slug, id):
+    comment = get_object_or_404(Comment, pk = id)
+
+    if comment.user != request.user:
+       return redirect('blog_detail', post_slug = post_slug)
+    
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('all_posts')
+    
+    return render(request, 'blogs/confirm-delete.html', {
+        'delete_comment': True,
+        'post_slug': post_slug,
+        'comment': comment
+        })

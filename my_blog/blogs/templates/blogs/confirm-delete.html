@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    
+    <h2 class="heading-one">Are You Sure You Want To Delete 
+        {% if delete_post %}
+        Post '{{ post.title }}'?
+        {% elif delete_comment %}
+        Comment '{{ comment.text|truncatechars:20 }}' On Post '{{ comment.post }}'?
+        {% endif %}
+    </h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="delete-comment-post">
+            <button type="submit" class="danger-button">Yes, Delete</button>
+            {% if delete_post %}
+                <a href="{% url 'blog_detail' post.slug %}" class="cancel-button">Cancel</a>
+            {% elif delete_comment %}
+                <a href="{% url 'blog_detail' post_slug %}" class="cancel-button">Cancel</a>
+            {% endif %}
+        </div>
+    </form>
+
+{% endblock %}

@@ -231,7 +231,7 @@ body {
   transform: scale(1.1);
 }
 
-.latest-post-description {
+.latest-post-description{
   padding: 1rem;
   color: #333;
   flex-grow: 1;
@@ -334,7 +334,7 @@ body {
   margin: 0;
 }
 
-.buttons a {
+.buttons a{
   display: inline-block;
   padding: 10px 18px;
   font-size: 0.9rem;
@@ -532,3 +532,134 @@ body {
   flex-grow: 1;
 }
 
+.add-post-button {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.add-post-button a {
+  padding: 12px 24px;
+  background-color: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-post-button a:hover {
+  background-color: #1e40af;
+  text-decoration: underline;
+  box-shadow: 0 10px 25px rgba(139, 139, 139, 0.2);
+  transform: translateY(-1px);
+}
+
+
+
+.comments-container .heading-one{
+  margin-top: 1rem;
+}
+
+.add-post {
+  padding: 2rem 5rem 2.5rem 5rem;
+}
+
+.post-form {
+  width: 100%;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.post-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.post-form input[type="text"],
+.post-form textarea,
+.post-form select,
+.post-form input[type="file"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-form input:focus,
+.post-form textarea:focus,
+.post-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.post-content {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.post-form button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.post-form button[type="submit"]:hover {
+  background-color: #1e40af;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.post-form .errorlist {
+  margin: -15px 0 15px;
+  padding: 0;
+  list-style: none;
+  color: #dc2626;
+  font-size: 14px;
+}
+
+.post-form .helptext {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
+
+
+.delete-comment-post {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.delete-comment-post .danger-button {
+  background-color: #dc2626;
+  color: #ffffff;
+  border: none;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.delete-comment-post .danger-button:hover {
+  background-color: #b91c1c;
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
+}
