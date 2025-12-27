@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Comment
 from .forms import CommentForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
+@login_required
 def update_comment(request, post_slug, comment_id):
     comment = get_object_or_404(Comment, pk = comment_id)
     if comment.user != request.user:
@@ -24,6 +25,7 @@ def update_comment(request, post_slug, comment_id):
     })
 
 
+@login_required
 def delete_comment(request, post_slug, id):
     comment = get_object_or_404(Comment, pk = id)
 

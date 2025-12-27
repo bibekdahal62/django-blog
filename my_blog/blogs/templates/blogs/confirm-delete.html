@@ -8,8 +8,10 @@
     <h2 class="heading-one">Are You Sure You Want To Delete 
         {% if delete_post %}
         Post '{{ post.title }}'?
+        {% block title %} Delete Post {% endblock %}
         {% elif delete_comment %}
         Comment '{{ comment.text|truncatechars:20 }}' On Post '{{ comment.post }}'?
+        {% block title %} Delete Comment {% endblock %}
         {% endif %}
     </h2>
     <form action="" method="post">

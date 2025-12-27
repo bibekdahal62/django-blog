@@ -3,6 +3,7 @@ from .models import Post
 from .forms import PostForm
 from comments.forms import CommentForm
 from catagories.models import Catagory
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -13,6 +14,7 @@ def index(request):
     })
 
 
+@login_required
 def all_blogs(request):
     posts = Post.objects.order_by('-created_at')
     return render(request, 'blogs/all-blogs.html', {
@@ -20,6 +22,7 @@ def all_blogs(request):
     })
 
 
+@login_required
 def blogs_by_date(request):
     posts = Post.objects.order_by('-created_at')[:10]
     return render(request, 'blogs/all-blogs.html', {
@@ -28,6 +31,7 @@ def blogs_by_date(request):
     })
 
 
+@login_required
 def blog_detail(request, post_slug):
     post = get_object_or_404(Post, slug = post_slug)
     comments = post.comments.all().order_by('-created_at')
@@ -49,6 +53,7 @@ def blog_detail(request, post_slug):
     })
 
 
+@login_required
 def post_by_catagory(request, slug):
     catagory = get_object_or_404(Catagory, slug = slug)
     posts = catagory.posts.all().order_by('-created_at')
@@ -59,6 +64,7 @@ def post_by_catagory(request, slug):
     })
 
 
+@login_required
 def add_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -71,11 +77,12 @@ def add_post(request):
         form = PostForm()
     return render(request, 'blogs/add-edit-content.html', {
         'form': form,
-        'add_edit_post': True,
+        'add_post': True,
         'heading': 'Add New Post'
     })
 
 
+@login_required
 def update_post(request, post_slug):
     post = get_object_or_404(Post, slug = post_slug)
     if post.author != request.user:
@@ -92,11 +99,12 @@ def update_post(request, post_slug):
         form = PostForm(instance=post)
     return render(request, 'blogs/add-edit-content.html', {
         'form': form,
-        'add_edit_post': True,
-        'heading': 'Add New Post',
+        'edit_post': True,
+        'heading': 'Update Post',
     })
 
 
+@login_required
 def delete_blog(request, post_slug):
     post = get_object_or_404(Post, slug = post_slug)
 

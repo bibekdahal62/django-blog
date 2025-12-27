@@ -663,3 +663,107 @@ body {
   background-color: #b91c1c;
   box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
 }
+
+
+/* Container centers the form vertically and horizontally */
+.login-register-container {
+  min-height: 100vh; /* full viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* The form box */
+.login-form {
+  background: #fff;
+  padding: 40px 35px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Heading */
+.login-form h1 {
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 700;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+}
+
+/* Style all input fields */
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 14px 18px;
+  margin: 12px 0 20px;
+  border-radius: 8px;
+  border: 1.8px solid #ddd;
+  font-size: 1.1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Input focus effect */
+.login-form input[type="text"]:focus,
+.login-form input[type="email"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #0066ff;
+  box-shadow: 0 0 8px rgba(0, 102, 255, 0.3);
+  outline: none;
+}
+
+/* Submit button */
+.login-register {
+  width: 100%;
+  padding: 15px 0;
+  background-color: #0066ff;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease;
+}
+
+.login-register:hover {
+  background-color: #004bb5;
+}
+
+/* Error messages styling */
+.form-errors {
+  background-color: #ffdddd;
+  color: #b80000;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+/* Labels styling, if you render labels separately */
+.login-form label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #555;
+  display: block;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+/* Paragraph around fields if you use <p> */
+.login-form p {
+  margin-bottom: 0;
+  text-align: left;
+}

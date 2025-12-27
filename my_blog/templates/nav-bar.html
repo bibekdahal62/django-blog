@@ -4,16 +4,26 @@
 <nav class="navigation-bar-container">
     <div class="profile-image">
         <img src="{% static 'images/default-post-image.png' %}" alt="profile image">
-        <p>{{ user.first_name }} <br> {{ user.last_name }}</p>
+        {% if user.is_authenticated %}
+            <p>{{ user.first_name }} <br> {{ user.last_name }}</p>
+        {% else %}
+            <p>Guest</p>
+        {% endif %}
     </div>
     <ul class="nav-bar">
         <li><a href="{% url 'home' %}">Home</a></li>
-        <li class="nav-dropdown"><a href="{% url 'all_posts' %}">Posts ▾</a>
-        <ul class="dropdown-menu">
-            <li><a href="{% url 'posts_by_date' %}">By Date</a></li>
-            <li><a href="{% url 'catagories' %}">By Catagory</a></li>
-        </ul></li>
-        <li><a href="">Logout</a></li>
-        <li><a href="">Profile</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'add_blog' %}">Add Post</a></li>
+            <li class="nav-dropdown"><a href="{% url 'all_posts' %}">Posts ▾</a>
+            <ul class="dropdown-menu">
+                <li><a href="{% url 'posts_by_date' %}">By Date</a></li>
+                <li><a href="{% url 'catagories' %}">By Categories</a></li>
+            </ul></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li><a href="">Profile</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+        {% endif %}
     </ul>
 </nav>

@@ -2,6 +2,16 @@
 
 {% load static %}
 
+{% block title %} 
+    {% if edit_comment %}
+        Update Comment
+    {% elif edit_post %}
+        Update Post
+    {% elif add_post %}
+        Add Post
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 
     <div class="comments-container">
@@ -17,12 +27,18 @@
                 <a href="{% url 'blog_detail' post_slug %}" class="cancel-button">Cancel</a>
             </form>
         </div>
-        {% elif add_edit_post %}
+        {% elif add_post or edit_post %}
         <div class="add-post">
             <form method="post" enctype="multipart/form-data" class="post-form">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Add Post</button>
+                <button type="submit">
+                    {% if add_post %}
+                        Add Post
+                    {% elif edit_post %}
+                        Update
+                    {% endif %}
+                </button>
             </form>
         </div>
         {% endif %}
