@@ -3,7 +3,13 @@
 {% load static %}
 
 {% block title %}
-Posts
+    {% if is_by_date %}
+        Posts By Date
+    {% elif by_catagory %}
+        Posts by Catagory
+    {% else %}
+        Posts
+    {% endif %}
 {% endblock %}
 
 <!-- {% block extra_css %}

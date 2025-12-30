@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{ user.first_name }} {{ user.last_name }} {% endblock %}
+
+{% block content %}
+
+<div class="user-profile" >
+
+     {% if user_profile.profile_image %}
+        <div class="profile-image">
+            <a href="{{ user_profile.profile_image.url }}" target="_blank">
+                <img src="{{ user_profile.profile_image.url }}" alt="{{ user.username }}">
+            </a>
+        </div>
+    {% else %}
+        <div class="no-profile-image">
+            <a href="{% static 'images/default-post-image.png' %}" target="_blank">
+                <img src="{% static 'images/default-post-image.png' %}" alt="profile image">
+            </a>
+        </div>
+        <div class="profile-image-form">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button class="profile-image-button">Add Image</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <div class="user-info">
+        <h1 class="heading-one">{{ user.first_name }} {{ user.last_name }}</h1>
+        <p class="user-username">Username: {{ user.username }}</p>
+        <p class="user-email">Email: {{ user.email }}</p>
+        <p class="user-last-login">Last login: {{ user.last_login|date:"F j, Y, g:i a" }}</p>
+        <p class="user-joined">date Joined: {{ user.date_joined|date:"F j, Y, g:i a" }}</p>
+    </div>
+    
+</div>
+
+{% endblock %}

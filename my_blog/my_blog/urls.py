@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('comments.urls')),
     path('', include('catagories.urls')),
     path('', include('authentication.urls')),
+    path('', include('Profiles.urls')),
 ]
 
 if settings.DEBUG:
